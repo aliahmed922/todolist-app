@@ -7,10 +7,10 @@
     </nav>
     <div class="row justify-content-md-center">
       <div class="col-md-6">
-        <div class="todolist not-done">
+        <div class="todolist" data-controller="todolist">
           <h1>Todos</h1>
 
-          <%= text_field_tag :text, nil, class: 'form-control todolist__text-field', placeholder: 'Add todo' %>
+          <%= text_field_tag :text, nil, class: 'form-control todolist__text-field', placeholder: 'Add todo', data: { target: 'todolist.input', action: 'keypress->todolist#addTodo' } %>
 
           <div class="text-right mt-2">
             <%= button_tag 'Mark all as Done', class: 'btn btn-success' %>
@@ -18,13 +18,17 @@
 
           <hr />
 
-          <ul id="sortable" class="todolist--list list-unstyled">
-            <% @todo_lists.each do |list| %>
-              <li class="ui-state-default">
+          <ul id="sortable" class="todolist--list list-unstyled" data-target="todolist.itemsList">
+            <% @todo_lists.each do |list_item| %>
+              <li class="ui-state-default <%= list_item.completed? ? 'todolist--list__completed-item' : '' %>">
                 <div class="checkbox">
                   <label>
-                    <input type="checkbox" value="" /> <%= list.text %>
+                    <%= check_box_tag :completed, list_item.id, list_item.completed?, data: { action: 'change->todolist#markAsCompleted' } %>
+                    <%= list_item.text %>
                   </label>
+                  <a href="#" class="float-right mt-1" data-action="click->todolist#removeItem" data-item-id="<%= list_item.id %>">
+                    <i class="fas fa-times"></i>
+                  </a>
                 </div>
               </li>
             <% end %>
