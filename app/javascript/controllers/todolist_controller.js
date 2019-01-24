@@ -1,10 +1,16 @@
 import { Controller } from "stimulus";
 import Rails from "rails-ujs";
+import TotalListCountObserver from './observers/total_list_count_observer';
 
 export default class extends Controller {
-  static targets = [ "input", "itemsList", "removeItem" ]
+  static targets = [ "input", "itemsList", "removeItem", "totalItemsCount" ]
   
   connect() {
+    TotalListCountObserver.monitor(this.itemsListTarget, this.totalItemsCountTarget);
+  }
+  
+  disconnect() {
+    TotalListCountObserver.forget();
   }
   
   addTodo(e) {
@@ -67,7 +73,7 @@ export default class extends Controller {
       <li class="ui-state-default">
         <div class="checkbox">
           <label>
-            <input type="checkbox" value="${item.id}" data-action="change->todolist#markAsCompleted" /> ${listItem.text}
+            <input type="checkbox" value="${listItem.id}" data-action="change->todolist#markAsCompleted" /> ${listItem.text}
           </label>
           <a href="#" class="float-right mt-1" data-action="click->todolist#removeItem" data-item-id="${listItem.id}">
             <i class="fas fa-times"></i>
