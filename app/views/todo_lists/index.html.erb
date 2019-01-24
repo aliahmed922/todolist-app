@@ -1,0 +1,43 @@
+<div class="mt-5">
+  <div class="container">
+    <nav class="navbar navbar-light bg-light mb-5">
+      <a class="navbar-brand" href="#">
+        TodoList App
+      </a>
+    </nav>
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="todolist not-done">
+          <h1>Todos</h1>
+
+          <%= text_field_tag :text, nil, class: 'form-control todolist__text-field', placeholder: 'Add todo' %>
+
+          <div class="text-right mt-2">
+            <%= button_tag 'Mark all as Done', class: 'btn btn-success' %>
+          </div>
+
+          <hr />
+
+          <ul id="sortable" class="todolist--list list-unstyled">
+            <% @todo_lists.each do |list| %>
+              <li class="ui-state-default">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox" value="" /> <%= list.text %>
+                  </label>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+          <div class="todolist--todo-footer">
+            <strong>
+              <span class="todolist--todo-footer__count-todos">
+                <%= @todo_lists.length %>
+              </span>
+            </strong> Items Left
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
