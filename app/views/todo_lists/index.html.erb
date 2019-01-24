@@ -13,7 +13,7 @@
           <%= text_field_tag :text, nil, class: 'form-control todolist__text-field', placeholder: 'Add todo', data: { target: 'todolist.input', action: 'keypress->todolist#addTodo' } %>
 
           <div class="text-right mt-2">
-            <%= button_tag 'Mark all as Done', class: 'btn btn-success' %>
+            <%= button_tag 'Mark all as completed', class: 'btn btn-sm btn-success', data: { action: 'click->todolist#markAllAsCompleted' } %>
           </div>
 
           <hr />
@@ -26,9 +26,12 @@
                     <%= check_box_tag :completed, list_item.id, list_item.completed?, data: { action: 'change->todolist#markAsCompleted' } %>
                     <%= list_item.text %>
                   </label>
-                  <a href="#" class="float-right mt-1" data-action="click->todolist#removeItem" data-item-id="<%= list_item.id %>">
+                  <a href="#" class="float-right" data-action="click->todolist#removeItem" data-item-id="<%= list_item.id %>">
                     <i class="fas fa-times"></i>
                   </a>
+                  <label class="float-right todolist--list__created-at">
+                    (<%= list_item.humanize_added_on %>)
+                  </label>
                 </div>
               </li>
             <% end %>

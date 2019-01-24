@@ -15,8 +15,9 @@ export default class extends Controller {
   
   addTodo(e) {
     if (e.which === 13) {
-      let text = e.target.value;
-      let data = new FormData();
+      let element = e.target
+      let text    = element.value;
+      let data    = new FormData();
       data.set('todo_list[text]', text);
       Rails.ajax({
         url: '/todo_lists',
@@ -24,7 +25,8 @@ export default class extends Controller {
         data: data,
         dataType: 'json',
         success: (listItem) => {
-          this.itemsListTarget.innerHTML += this.appendListItem(listItem);
+          this.itemsListTarget.innerHTML = this.newListItem(listItem) + this.itemsListTarget.innerHTML;
+          element.value = "";
         },
         error: () => { console.log('Error') }
       });
@@ -68,7 +70,27 @@ export default class extends Controller {
     });
   }
   
-  appendListItem(listItem) {
+  markAllAsCompleted(e) {
+    e.preventDefault();
+    let element    = e.currentTarget;
+    let data       = new FormData();
+    data.set('todo_list[mark_all_as_completed]', true);
+    Rails.ajax({
+      url: '/todo_lists/mark_all',
+      type: 'PUT',
+      dataType: 'json',
+      data: data,
+      success: () => {
+        for(let listItem of this.itemsListTarget.querySelectorAll('li')) {
+          listItem.classList.add('todolist--list__completed-item');
+          listItem.querySelector("input[type='checkbox']").checked = true;
+        }
+      },
+      error: () => { console.log('Error') }
+    });
+  }
+  
+  newListItem(listItem) {
     return `
       <li class="ui-state-default">
         <div class="checkbox">
@@ -78,6 +100,9 @@ export default class extends Controller {
           <a href="#" class="float-right mt-1" data-action="click->todolist#removeItem" data-item-id="${listItem.id}">
             <i class="fas fa-times"></i>
           </a>
+          <label class="float-right todolist--list__created-at">
+            (${listItem.humanize_added_on})
+          </label>
         </div>
       </li>
     `;

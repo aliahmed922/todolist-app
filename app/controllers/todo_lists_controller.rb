@@ -32,9 +32,15 @@ class TodoListsController < ApplicationController
     end
   end
   
+  
   # DELETE /todo_lists/1.json
   def destroy
     @todo_list.destroy
+    head :no_content
+  end
+
+  def mark_all
+    TodoList.update_all(completed: true)
     head :no_content
   end
 
@@ -47,7 +53,7 @@ class TodoListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_list_params
-      params.require(:todo_list).permit(:text, :completed)
+      params.require(:todo_list).permit(:text, :completed, :mark_all_as_completed)
     end
 
     def set_default_response_format

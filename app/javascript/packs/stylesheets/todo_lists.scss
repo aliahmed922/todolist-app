@@ -29,6 +29,11 @@ body{
       &.todolist--list__completed-item {
         label { text-decoration: line-through; }
       }
+      .todolist--list__created-at {
+        font-size: 13px;
+        margin-top: 3px;
+        margin-right: 10px;
+      }
     }
   }
 
