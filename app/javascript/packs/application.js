@@ -9,6 +9,12 @@
 
 console.log('Hello World from Webpacker')
 
+import "./stylesheets/index.js";
+import "bootstrap";
+
+import Turbolinks from "turbolinks";
+Turbolinks.start();
+
 import { Application } from "stimulus"
 import { definitionsFromContext } from "stimulus/webpack-helpers"
 
