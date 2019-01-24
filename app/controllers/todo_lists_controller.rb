@@ -15,7 +15,6 @@ class TodoListsController < ApplicationController
   # POST /todo_lists.json
   def create
     @todo_list = TodoList.new(todo_list_params)
-
     if @todo_list.save
       render :show, status: :created, location: @todo_list
     else
@@ -53,7 +52,7 @@ class TodoListsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def todo_list_params
-      params.require(:todo_list).permit(:text, :completed, :mark_all_as_completed)
+      params.require(:todo_list).permit(:text, :completed)
     end
 
     def set_default_response_format
