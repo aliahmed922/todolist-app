@@ -1,24 +1,21 @@
-# README
+# TodoList App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple TODO list app. The backend/Views are generated from Rails and Frontend is managed through Stimulas JS. The Front end uses Rails APIs to mutate the content.
 
-Things you may want to cover:
+### Prerequisites
 
-* Ruby version
+- Rails 5.2.2
+- Ruby 2.5.1
+- PG
 
-* System dependencies
+### Installation
 
-* Configuration
+- Clone the repo `git clone git@github.com:aliahmed922/todolist-app.git`
+- `cd todolist-app`
+- Run `bundle`
+- Run `yarn install`
+- Copy `database.yml.example` from `/config` and paste in the same folder with `database.yml`
+- Run `rails db:create db:migrate db:seed`
+- Run `foreman start`
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+There you go! Cheers.
