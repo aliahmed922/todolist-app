@@ -16,6 +16,6 @@ This is a simple TODO list app. The backend/Views are generated from Rails and F
 - Run `yarn install`
 - Copy `database.yml.example` from `/config` and paste in the same folder with `database.yml`
 - Run `rails db:create db:migrate db:seed`
-- Run `foreman start`
+- Run `foreman start -f Procfile.dev`
 
 There you go! Cheers.
