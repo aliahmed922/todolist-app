@@ -31,9 +31,6 @@
 yarn-debug.log*
 .yarn-integrity
 
-# Ignore database.yml
-/config/database.yml
-
 .idea
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
